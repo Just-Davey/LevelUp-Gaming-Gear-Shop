@@ -5,6 +5,7 @@ import authRoutes from './routes/auth.js';
 import productRoutes from './routes/product.js';
 import userCartRoutes from './routes/user.js';
 import orderRoutes from './routes/order.js';
+import adminRoutes from './routes/admin.js';
 
 dotenv.config();
 
@@ -16,6 +17,7 @@ app.use('/auth', authRoutes);
 app.use('/products', productRoutes);
 app.use('/users', userCartRoutes);
 app.use('/orders', orderRoutes);
+app.use('/admin', adminRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Route not found' });
