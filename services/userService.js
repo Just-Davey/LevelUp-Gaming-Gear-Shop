@@ -8,7 +8,7 @@ class UserService {
         cart: {
           include: {
             products: {
-              include: { product: true },
+              include: { product: true }, 
             },
           },
         },
@@ -19,7 +19,7 @@ class UserService {
   static async addToCart(userId, productId) {
     const cartItem = await prisma.cartItem.findUnique({
       where: {
-        userId_productId: { userId: userId, productId: productId },
+        userId_productId: { userId, productId },
       },
     });
 
@@ -30,24 +30,27 @@ class UserService {
       });
     } else {
       return prisma.cartItem.create({
-        data: {
-          userId: userId,
-          productId: productId,
-          quantity: 1,
-        },
+        data: { userId, productId, quantity: 1 },
       });
     }
   }
 
   static async deleteCartItem(userId, productId) {
     return prisma.cartItem.deleteMany({
-      where: { userId: userId, productId: productId },
+      where: { userId, productId },
     });
   }
 
   static async clearCart(userId) {
     return prisma.cartItem.deleteMany({
-      where: { userId: userId },
+      where: { userId },
+    });
+  }
+
+  static async getCart(userId) {
+    return prisma.cartItem.findMany({
+      where: { userId },
+      include: { product: true },
     });
   }
 }

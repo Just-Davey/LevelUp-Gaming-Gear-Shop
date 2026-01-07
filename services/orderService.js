@@ -1,11 +1,10 @@
 import prisma from '../prismaClient.js';
+import UserService from './userService.js';
 
 class OrderService {
   static async createOrder(userId) {
-    const cartItems = await prisma.cartItem.findMany({
-      where: { userId },
-      include: { product: true },
-    });
+    const user = await UserService.getUserById(userId);
+    const cartItems = user.cart?.products || [];
 
     if (!cartItems.length) {
       throw new Error('Cart is empty');
@@ -19,21 +18,21 @@ class OrderService {
       data: {
         userId,
         totalPrice,
-        products: {
+        orderItems: {
           create: cartItems.map((item) => ({
-            productId: item.productId,
+            productId: item.product.id,
             quantity: item.quantity,
           })),
         },
       },
       include: {
-        products: {
+        orderItems: {
           include: { product: true },
         },
       },
     });
 
-    await prisma.cartItem.deleteMany({ where: { userId } });
+    await UserService.clearCart(userId);
 
     return order;
   }

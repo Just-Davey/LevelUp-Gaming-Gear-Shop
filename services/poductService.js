@@ -8,14 +8,11 @@ class ProductService {
   }
 
   static async getProductById(productId) {
-    return prisma.product.findUnique({
-      where: { id: productId },
-    });
+    return prisma.product.findUnique({ where: { id: productId } });
   }
 
   static async getProductsByUser(userId, page = 1, itemsPerPage = 3) {
     const skip = (page - 1) * itemsPerPage;
-
     const [totalItems, products] = await Promise.all([
       prisma.product.count({ where: { userId } }),
       prisma.product.findMany({
@@ -25,13 +22,11 @@ class ProductService {
         orderBy: { createdAt: 'desc' },
       }),
     ]);
-
     return { totalItems, products };
   }
 
   static async getAllProducts(page = 1, itemsPerPage = 3) {
     const skip = (page - 1) * itemsPerPage;
-
     const [totalItems, products] = await Promise.all([
       prisma.product.count(),
       prisma.product.findMany({
@@ -40,7 +35,6 @@ class ProductService {
         orderBy: { createdAt: 'desc' },
       }),
     ]);
-
     return { totalItems, products };
   }
 
@@ -52,9 +46,7 @@ class ProductService {
   }
 
   static async deleteProduct(productId) {
-    return prisma.product.delete({
-      where: { id: productId },
-    });
+    return prisma.product.delete({ where: { id: productId } });
   }
 }
 
