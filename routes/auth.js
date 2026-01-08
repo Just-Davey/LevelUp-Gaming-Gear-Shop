@@ -1,8 +1,9 @@
 import express from 'express';
-import body from 'express-validator';
+import { body } from 'express-validator';  
 import * as authController from '../controllers/authController.js';
 import prisma from '../prismaClient.js';
 import bcrypt from 'bcrypt';
+
 
 const router = express.Router();
 
