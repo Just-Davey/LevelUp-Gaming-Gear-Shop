@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="page">
+    <%- include('../components/header') %>
+
+    <main>
+      <div class="container">
+        <section class="hero glass">
+          <div class="hero-card">
+            <div class="badge">Nodejs • Prisma • PostgreSQL</div>
+            <h1 class="h1">Upgrade Your Gaming Setup</h1>
+            <p class="p">Premium gaming gear. Maximum performance.</p>
+
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              <a class="btn btn-primary" href="/shop">Shop Now</a>
+              <a class="btn btn-ghost" href="/register">Create account</a>
+            </div>
+          </div>
+
+          <div class="hero-visual glow-pink"></div>
+        </section>
+
+        <div style="height:18px;"></div>
+
+        <section>
+          <h2 class="h2">Featured Gear</h2>
+
+          <div class="grid grid-3">
+            <% for (let i = 0; i < 6; i++) { %>
+              <article class="card">
+                <div class="card-img"></div>
+                <h3 class="card-title">Gaming Product</h3>
+                <div class="card-meta">
+                  <span class="price">99.99</span>
+                  <a class="btn btn-primary" href="/shop">View</a>
+                </div>
+              </article>
+            <% } %>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <%- include('../components/footer') %>
+  </div>
+</body>
+</html>

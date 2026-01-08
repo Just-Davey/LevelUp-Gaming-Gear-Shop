@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../components/header') %>
+
+  <main>
+    <div class="container">
+      <section class="glass glow-pink hero" style="grid-template-columns: 1fr 1fr;">
+        <div class="hero-card">
+          <div class="badge">Create your account</div>
+          <h1 class="h1">Join the <span style="text-shadow: 0 0 18px rgba(255,43,214,0.25), 0 0 18px rgba(0,229,255,0.18);">Neon</span> crew</h1>
+          <p class="p">Register to save your gear, build your cart faster, and order in seconds.</p>
+
+          <div class="glass form-card glow-cyan" style="margin-top:16px;">
+            <form action="/auth/register" method="POST">
+              <div class="field">
+                <label class="label" for="email">Email</label>
+                <input class="input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label class="label" for="password">Password</label>
+                <input class="input" type="password" id="password" name="password" placeholder="Minimum 6 characters" autocomplete="new-password" required />
+                <div class="helper">Use at least 6 characters. Mix letters and numbers for stronger security.</div>
+              </div>
+
+              <button class="btn btn-primary" type="submit" style="width:100%;">Create account</button>
+
+              <div style="display:flex; justify-content:center; gap:10px; margin-top:14px;">
+                <span class="helper">Already have an account?</span>
+                <a class="helper" href="/login" style="position:relative; padding-bottom:4px;">Login</a>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="hero-visual glow-violet" style="height: 360px;">
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <%- include('../components/footer') %>
+</body>
+</html>

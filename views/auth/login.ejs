@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <%- include('../components/header') %>
+
+  <main>
+    <div class="container">
+      <section class="glass glow-cyan hero" style="grid-template-columns: 1fr 1fr;">
+        <div class="hero-card">
+          <div class="badge">Welcome back</div>
+          <h1 class="h1">Login to <span style="text-shadow: 0 0 18px rgba(0,229,255,0.25), 0 0 18px rgba(255,43,214,0.18);">LevelUP!</span></h1>
+          <p class="p">Sign in to manage your cart, track orders, and unlock neon-exclusive deals.</p>
+
+          <div class="glass form-card glow-pink" style="margin-top:16px;">
+            <form action="/auth/login" method="POST">
+              <div class="field">
+                <label class="label" for="email">Email</label>
+                <input class="input" type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+              </div>
+
+              <div class="field">
+                <label class="label" for="password">Password</label>
+                <input class="input" type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+              </div>
+
+              <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; margin: 10px 0 16px;">
+                <label class="helper" style="display:flex; align-items:center; gap:10px;">
+                  <input type="checkbox" name="remember" />
+                  Remember me
+                </label>
+
+                <a class="helper" href="/register" style="position:relative; padding-bottom:4px;">
+                  New here? Create account
+                </a>
+              </div>
+
+              <button class="btn btn-primary" type="submit" style="width:100%;">Login</button>
+
+              <div class="helper" style="margin-top:14px; text-align:center;">
+                By continuing you agree to basic app usage and data handling for authentication.
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="hero-visual glow-violet" style="height: 360px;">
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <%- include('../components/footer') %>
+</body>
+</html>
