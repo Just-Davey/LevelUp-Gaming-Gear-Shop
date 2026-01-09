@@ -34,5 +34,12 @@ router.post('/logout', (req, res) => {
   return res.redirect('/');
 });
 
+router.get('/cart', (req, res) => {
+  res.render('pages/cart', {
+    title: 'Cart | LevelUP!',
+  });
+});
+
+
 
 export default router;

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="page">
+
+  <%- include('../components/header') %>
+
+  <main>
+    <div class="container">
+
+      <h1 class="h1">Your Cart</h1>
+      <p class="p">Review your selected gaming gear before checkout.</p>
+
+      <div class="cart-layout">
+
+        <section class="cart-items">
+          <% for (let i = 0; i < 3; i++) { %>
+            <article class="cart-item glass glow-hover">
+              <div class="cart-img"></div>
+
+              <div class="cart-info">
+                <h3 class="cart-title">Gaming Product</h3>
+                <p class="cart-desc">Neon performance gear with premium build.</p>
+
+                <div class="cart-actions">
+                  <div class="qty">
+                    <button class="qty-btn">−</button>
+                    <span class="qty-value">1</span>
+                    <button class="qty-btn">+</button>
+                  </div>
+
+                  <button class="btn btn-ghost">Remove</button>
+                </div>
+              </div>
+
+              <div class="cart-price">
+                <div class="price">99.99</div>
+              </div>
+            </article>
+          <% } %>
+        </section>
+
+        <aside class="cart-summary glass glow-cyan">
+          <h2 class="h2">Order Summary</h2>
+
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span>$299.97</span>
+          </div>
+
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span>Free</span>
+          </div>
+
+          <div class="summary-row summary-total">
+            <span>Total</span>
+            <span>$299.97</span>
+          </div>
+
+          <button class="btn btn-primary checkout-btn">
+            Checkout
+          </button>
+        </aside>
+
+      </div>
+
+    </div>
+  </main>
+
+  <%- include('../components/footer') %>
+
+</body>
+</html>

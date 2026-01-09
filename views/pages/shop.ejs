@@ -12,21 +12,72 @@
 
   <main>
     <div class="container">
-      <h1 class="h1">Shop</h1>
-      <p class="p">Browse our neon-powered gaming gear.</p>
 
-      <div class="grid grid-3">
-        <% for (let i = 0; i < 6; i++) { %>
-          <div class="card glow-cyan">
-            <div class="card-img"></div>
-            <h3 class="card-title">Gaming Gear</h3>
-            <div class="card-meta">
-              <span class="price">99.99</span>
-              <button class="btn btn-primary">View</button>
-            </div>
+      <section class="shop-top glass glow-cyan">
+        <div class="shop-top-left">
+          <div class="badge">Neon Shop • Gear Drop</div>
+          <h1 class="h1">Shop</h1>
+          <p class="p">Premium gaming gear with a neon aesthetic. Pick your loadout.</p>
+
+          <div class="shop-actions">
+            <a class="btn btn-primary" href="#grid">Browse</a>
+            <a class="btn btn-ghost" href="/">Back Home</a>
           </div>
+        </div>
+
+        <div class="shop-top-right">
+          <div class="shop-orb"></div>
+          <div class="shop-orb shop-orb-2"></div>
+          <div class="shop-orb shop-orb-3"></div>
+        </div>
+      </section>
+
+      <section class="shop-controls">
+        <div class="shop-search glass">
+          <input class="input shop-input" placeholder="Search (design only)..." />
+          <button class="btn btn-ghost">Filter</button>
+          <button class="btn btn-ghost">Sort</button>
+        </div>
+
+        <div class="shop-chips">
+          <button class="chip chip-active">All</button>
+          <button class="chip">Keyboards</button>
+          <button class="chip">Mice</button>
+          <button class="chip">Headsets</button>
+          <button class="chip">Monitors</button>
+        </div>
+      </section>
+
+      <section id="grid" class="grid grid-3 shop-grid">
+        <% for (let i = 0; i < 9; i++) { %>
+          <article class="card product glow-hover">
+            <div class="product-media">
+              <div class="card-img product-img"></div>
+              <div class="product-tags">
+                <span class="tag tag-cyan">Hot</span>
+                <span class="tag tag-pink">Neon</span>
+              </div>
+            </div>
+
+            <div class="product-body">
+              <h3 class="card-title">Gaming Gear</h3>
+              <p class="product-desc">Maximum performance vibes.</p>
+
+              <div class="product-bottom">
+                <div class="price-wrap">
+                  <div class="price">99.99</div>
+                  <div class="muted-mini">In stock</div>
+                </div>
+                <div class="product-cta">
+                  <a class="btn btn-ghost" href="#">View</a>
+                  <button class="btn btn-primary" type="button">Add</button>
+                </div>
+              </div>
+            </div>
+          </article>
         <% } %>
-      </div>
+      </section>
+
     </div>
   </main>
 
