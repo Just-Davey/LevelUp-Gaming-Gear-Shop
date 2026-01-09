@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="page">
+  <%- include('../components/header') %>
+
+  <main>
+    <div class="container">
+      <section class="glass glow-cyan" style="padding:22px;">
+        <div class="badge">Admin • Control Center</div>
+        <h1 class="h1">Dashboard</h1>
+        <p class="p">Manage products, users and store operations.</p>
+
+        <div class="grid grid-3">
+          <article class="card glow-hover">
+            <h3 class="card-title">Products</h3>
+            <div class="card-meta">
+              <span class="stat-number"><%= stats.productsCount %></span>
+              <a class="btn btn-primary" href="/admin/products">Open</a>
+            </div>
+          </article>
+
+          <article class="card glow-hover">
+            <h3 class="card-title">Users</h3>
+            <div class="card-meta">
+              <span class="stat-number"><%= stats.usersCount %></span>
+              <a class="btn btn-primary" href="/admin/users">Open</a>
+            </div>
+          </article>
+
+          <article class="card glow-hover">
+            <h3 class="card-title">Orders</h3>
+            <div class="card-meta">
+              <span class="stat-number"><%= stats.ordersCount %></span>
+              <a class="btn btn-ghost" href="#">Soon</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <%- include('../components/footer') %>
+</body>
+</html>

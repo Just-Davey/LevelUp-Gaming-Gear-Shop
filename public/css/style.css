@@ -687,10 +687,11 @@ main{
   width:100%;
 }
 
-@media (max-width: 900px){
-  .cart-layout{
-    grid-template-columns: 1fr;
-  }
+.stat-number{
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
 }
+
 
 

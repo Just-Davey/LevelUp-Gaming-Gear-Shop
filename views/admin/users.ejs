@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="page">
+  <%- include('../components/header') %>
+
+  <main>
+    <div class="container">
+      <section class="glass glow-cyan" style="padding:22px;">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+          <div>
+            <div class="badge">Admin • Users</div>
+            <h1 class="h1">Users</h1>
+            <p class="p">Manage roles and access.</p>
+          </div>
+          <a class="btn btn-ghost" href="/admin">Back</a>
+        </div>
+
+        <div style="height:14px;"></div>
+
+        <% if (!users || users.length === 0) { %>
+          <p class="p">No users.</p>
+        <% } else { %>
+          <div class="grid" style="gap:10px;">
+            <% users.forEach(u => { %>
+              <div class="card glow-hover" style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;">
+                <div>
+                  <div style="font-weight:800;"><%= u.email %></div>
+                  <div class="helper">ID: <%= u.id %> • <%= u.isAdmin ? 'Admin' : 'User' %></div>
+                </div>
+
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                  <form method="POST" action="/admin/users/<%= u.id %>/toggle-admin" style="margin:0;">
+                    <button class="btn btn-ghost" type="submit"><%= u.isAdmin ? 'Remove admin' : 'Make admin' %></button>
+                  </form>
+
+                  <form method="POST" action="/admin/users/<%= u.id %>/delete" style="margin:0;">
+                    <button class="btn btn-primary" type="submit">Delete</button>
+                  </form>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+      </section>
+    </div>
+  </main>
+
+  <%- include('../components/footer') %>
+</body>
+</html>

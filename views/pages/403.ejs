@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="page">
+  <%- include('../components/header') %>
+  <main>
+    <div class="container">
+      <section class="glass glow-pink" style="padding:22px;">
+        <div class="badge">Access denied</div>
+        <h1 class="h1">403</h1>
+        <p class="p">You don’t have permission to access this page.</p>
+        <a class="btn btn-primary" href="/">Back to home</a>
+      </section>
+    </div>
+  </main>
+  <%- include('../components/footer') %>
+</body>
+</html>

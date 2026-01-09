@@ -11,6 +11,7 @@ import productRoutes from './routes/product.js';
 import userCartRoutes from './routes/user.js';
 import orderRoutes from './routes/order.js';
 import adminRoutes from './routes/admin.js';
+import setAuthLocals from './middleware/setAuthLocals.js';
 
 
 import prisma from './prismaClient.js';
@@ -31,6 +32,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
+app.use(setAuthLocals);
+
 
 app.use(async (req, res, next) => {
   res.locals.user = null;
@@ -87,6 +90,7 @@ app.use('/products', productRoutes);
 app.use('/users', userCartRoutes);
 app.use('/orders', orderRoutes);
 app.use('/admin', adminRoutes);
+
 
 app.use((req, res) => {
   const isApi =
