@@ -5,12 +5,8 @@ class UserService {
     return prisma.user.findUnique({
       where: { id: userId },
       include: {
-        cart: {
-          include: {
-            products: {
-              include: { product: true }, 
-            },
-          },
+        cartItems: {
+          include: { product: true },
         },
       },
     });
@@ -28,11 +24,31 @@ class UserService {
         where: { id: cartItem.id },
         data: { quantity: cartItem.quantity + 1 },
       });
-    } else {
-      return prisma.cartItem.create({
-        data: { userId, productId, quantity: 1 },
-      });
     }
+
+    return prisma.cartItem.create({
+      data: { userId, productId, quantity: 1 },
+    });
+  }
+
+  static async decreaseFromCart(userId, productId) {
+    const cartItem = await prisma.cartItem.findUnique({
+      where: {
+        userId_productId: { userId, productId },
+      },
+    });
+
+    if (!cartItem) return null;
+
+    if (cartItem.quantity <= 1) {
+      await prisma.cartItem.delete({ where: { id: cartItem.id } });
+      return null;
+    }
+
+    return prisma.cartItem.update({
+      where: { id: cartItem.id },
+      data: { quantity: cartItem.quantity - 1 },
+    });
   }
 
   static async deleteCartItem(userId, productId) {
@@ -51,6 +67,7 @@ class UserService {
     return prisma.cartItem.findMany({
       where: { userId },
       include: { product: true },
+      orderBy: { createdAt: 'desc' },
     });
   }
 }

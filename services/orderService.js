@@ -4,15 +4,13 @@ import UserService from './userService.js';
 class OrderService {
   static async createOrder(userId) {
     const user = await UserService.getUserById(userId);
-    const cartItems = user.cart?.products || [];
+    const cartItems = user?.cartItems || [];
 
-    if (!cartItems.length) {
-      throw new Error('Cart is empty');
-    }
+    if (!cartItems.length) throw new Error('Cart is empty');
 
-    const totalPrice = cartItems
-      .map((item) => item.quantity * item.product.price)
-      .reduce((acc, val) => acc + val, 0);
+    const totalPrice = cartItems.reduce((acc, item) => {
+      return acc + Number(item.product.price) * item.quantity;
+    }, 0);
 
     const order = await prisma.order.create({
       data: {
@@ -20,7 +18,7 @@ class OrderService {
         totalPrice,
         orderItems: {
           create: cartItems.map((item) => ({
-            productId: item.product.id,
+            productId: item.productId,
             quantity: item.quantity,
           })),
         },
@@ -33,7 +31,6 @@ class OrderService {
     });
 
     await UserService.clearCart(userId);
-
     return order;
   }
 
@@ -41,9 +38,7 @@ class OrderService {
     return prisma.order.findMany({
       where: { userId },
       include: {
-        products: {
-          include: { product: true },
-        },
+        orderItems: { include: { product: true } },
       },
       orderBy: { createdAt: 'desc' },
     });
@@ -53,9 +48,7 @@ class OrderService {
     return prisma.order.findUnique({
       where: { id: orderId },
       include: {
-        products: {
-          include: { product: true },
-        },
+        orderItems: { include: { product: true } },
       },
     });
   }

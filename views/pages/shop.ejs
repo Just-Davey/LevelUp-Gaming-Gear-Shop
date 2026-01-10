@@ -48,44 +48,49 @@
         </div>
       </section>
 
-<section id="grid" class="grid grid-3 shop-grid">
-  <% if (products.length === 0) { %>
-    <p class="p">No products available.</p>
-  <% } %>
+      <section id="grid" class="grid grid-3 shop-grid">
+        <% if (!products || products.length === 0) { %>
+          <p class="p">No products available.</p>
+        <% } else { %>
 
-  <% products.forEach(function(product) { %>
+          <% products.forEach(function(product) { %>
+            <article class="card product glow-hover">
+              <div class="product-media">
+                <div
+                  class="card-img product-img"
+                  style="background-image: url('<%= product.imageUrl %>'); background-size: cover; background-position: center;"
+                ></div>
 
-    <article class="card product glow-hover">
-      <div class="product-media">
-        <div
-          class="card-img product-img"
-          style="background-image: url('<%= product.imageUrl %>'); background-size: cover; background-position: center;"
-        ></div>
+                <div class="product-tags"></div>
+              </div>
 
-        <div class="product-tags">
-        </div>
-      </div>
+              <div class="product-body">
+                <h3 class="card-title"><%= product.title %></h3>
+                <p class="product-desc"><%= product.description %></p>
 
-      <div class="product-body">
-        <h3 class="card-title"><%= product.title %></h3>
-        <p class="product-desc"><%= product.description %></p>
+                <div class="product-bottom">
+                  <div class="price-wrap">
+                    <div class="price"><%= product.price %></div>
+                    <div class="muted-mini">In stock</div>
+                  </div>
 
-        <div class="product-bottom">
-          <div class="price-wrap">
-            <div class="price"><%= product.price %></div>
-            <div class="muted-mini">In stock</div>
-          </div>
+                  <div class="product-cta">
+                    <% if (!user) { %>
+                      <a class="btn btn-primary" href="/register">Add</a>
+                    <% } else { %>
+                      <form action="/cart/add" method="POST" style="margin:0;">
+                        <input type="hidden" name="productId" value="<%= product.id %>">
+                        <button class="btn btn-primary" type="submit">Add</button>
+                      </form>
+                    <% } %>
+                  </div>
+                </div>
+              </div>
+            </article>
+          <% }) %>
 
-          <div class="product-cta">
-            <button class="btn btn-primary" type="button">Add</button>
-          </div>
-        </div>
-      </div>
-    </article>
-
-  <% }) %>
-</section>
-
+        <% } %>
+      </section>
 
     </div>
   </main>

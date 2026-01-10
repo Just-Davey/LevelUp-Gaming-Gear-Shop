@@ -10,6 +10,16 @@
 
   <%- include('../components/header') %>
 
+  <% if (toast) { %>
+    <div id="toast" class="toast glass glow-cyan"><%= toast %></div>
+    <script>
+      const t = document.getElementById('toast');
+      setTimeout(() => { t && t.classList.add('toast-hide'); }, 2200);
+      setTimeout(() => { t && t.remove(); }, 2800);
+    </script>
+  <% } %>
+
+
   <main>
     <div class="container">
 
@@ -19,29 +29,50 @@
       <div class="cart-layout">
 
         <section class="cart-items">
-          <% for (let i = 0; i < 3; i++) { %>
-            <article class="cart-item glass glow-hover">
-              <div class="cart-img"></div>
+          <% if (!items || items.length === 0) { %>
+            <div class="glass" style="padding:18px;">
+              <p class="p" style="margin:0;">Your cart is empty.</p>
+              <div style="height:12px;"></div>
+              <a class="btn btn-primary" href="/shop">Go to Shop</a>
+            </div>
+          <% } else { %>
 
-              <div class="cart-info">
-                <h3 class="cart-title">Gaming Product</h3>
-                <p class="cart-desc">Neon performance gear with premium build.</p>
+            <% items.forEach(function(item) { %>
+              <article class="cart-item glass glow-hover">
+                <div
+                  class="cart-img"
+                  style="background-image:url('<%= item.product.imageUrl %>'); background-size:cover; background-position:center;"
+                ></div>
 
-                <div class="cart-actions">
-                  <div class="qty">
-                    <button class="qty-btn">−</button>
-                    <span class="qty-value">1</span>
-                    <button class="qty-btn">+</button>
+                <div class="cart-info">
+                  <h3 class="cart-title"><%= item.product.title %></h3>
+                  <p class="cart-desc"><%= item.product.description %></p>
+
+                  <div class="cart-actions">
+                    <div class="qty">
+                      <form action="/cart/<%= item.productId %>/dec" method="POST" style="margin:0;">
+                        <button class="qty-btn" type="submit">−</button>
+                      </form>
+
+                      <span class="qty-value"><%= item.quantity %></span>
+
+                      <form action="/cart/<%= item.productId %>/inc" method="POST" style="margin:0;">
+                        <button class="qty-btn" type="submit">+</button>
+                      </form>
+                    </div>
+
+                    <form action="/cart/<%= item.productId %>/remove" method="POST" style="margin:0;">
+                      <button class="btn btn-ghost" type="submit">Remove</button>
+                    </form>
                   </div>
-
-                  <button class="btn btn-ghost">Remove</button>
                 </div>
-              </div>
 
-              <div class="cart-price">
-                <div class="price">99.99</div>
-              </div>
-            </article>
+                <div class="cart-price">
+                  <div class="price"><%= (Number(item.product.price) * item.quantity).toFixed(2) %></div>
+                </div>
+              </article>
+            <% }) %>
+
           <% } %>
         </section>
 
@@ -50,7 +81,7 @@
 
           <div class="summary-row">
             <span>Subtotal</span>
-            <span>$299.97</span>
+            <span>$<%= Number(subtotal || 0).toFixed(2) %></span>
           </div>
 
           <div class="summary-row">
@@ -60,12 +91,20 @@
 
           <div class="summary-row summary-total">
             <span>Total</span>
-            <span>$299.97</span>
+            <span>$<%= Number(total || 0).toFixed(2) %></span>
           </div>
 
-          <button class="btn btn-primary checkout-btn">
-            Checkout
-          </button>
+          <% if (items && items.length > 0) { %>
+            <form action="/cart/clear" method="POST" style="margin:0; display:flex; gap:10px; flex-wrap:wrap;">
+              <button class="btn btn-ghost" type="submit">Clear cart</button>
+                <form action="/checkout" method="POST" style="margin:0;">
+                  <button class="btn btn-primary" type="submit">Checkout</button>
+                </form>
+
+            </form>
+          <% } else { %>
+            <button class="btn btn-primary" type="button" disabled>Checkout</button>
+          <% } %>
         </aside>
 
       </div>
