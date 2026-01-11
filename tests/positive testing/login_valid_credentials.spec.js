@@ -4,7 +4,7 @@ test("User can log in with valid credentials", async ({ page }) => {
   // Go to login page
   await page.goto("/login");
 
-  // Fill email / username
+  // Fill email 
   await page.getByLabel("Email").fill("aleksapetrovic2002@gmail.com");
   // or: page.getByPlaceholder("Email")
 
@@ -14,6 +14,6 @@ test("User can log in with valid credentials", async ({ page }) => {
   // Click login button
   await page.getByRole("button", { name: "Login" }).click();
 
-  // Assert something that only logged-in users can see
+  // assert 'cart' link that only logged in user can see
   await expect(page.getByRole('link', { name: 'Cart' })).toBeVisible();
 });
